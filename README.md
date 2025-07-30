@@ -14,10 +14,11 @@ This is tested on Fedora Workstation (GNOME Wayland)
 
 ### Prerequisites
 
-These are required to build GLFW
+These are required to build GLFW and GLEW
 
 ```shell
 sudo dnf install wayland-devel libxkbcommon-devel
+sudo dnf install libXmu-devel libXi-devel libGL-devel
 ```
 
 ### Build

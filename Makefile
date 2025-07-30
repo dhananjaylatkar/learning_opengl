@@ -6,17 +6,21 @@ STAGING_DIR:=${TOPDIR}/.staging_dir
 INCLUDE_DIR:=${STAGING_DIR}/include
 LIB_DIR:=${STAGING_DIR}/libs
 
-GLFW=glfw-3.4
-GLFW_SRC=${CONTRIB}/${GLFW}
-BUILD_DIR_GLFW=${BUILD_DIR}/${GLFW}
-
 APP=src
 APP_SRC=${TOPDIR}/${APP}
 BUILD_DIR_APP=${BUILD_DIR}/${APP}
 
+GLFW=glfw-3.4
+GLFW_SRC=${CONTRIB}/${GLFW}
+BUILD_DIR_GLFW=${BUILD_DIR}/${GLFW}
+
+GLEW=glew-2.2.0
+GLEW_SRC=${CONTRIB}/${GLEW}
+BUILD_DIR_GLEW=${BUILD_DIR}/${GLEW}
+
 all: build run
 
-build: prepare glfw app
+build: prepare glfw glew app
 
 run: build
 	${BUILD_DIR_APP}/app
@@ -39,6 +43,14 @@ glfw:
 
 	@echo "<<< ${GLFW} <<<"
 
+glew:
+	@echo ">>> ${GLEW} >>>"
+	make -C ${GLEW_SRC} SYSTEM=linux-egl glew.lib.shared
+	@echo "installing ${GLEW}"
+	@cp ${GLEW_SRC}/lib/* ${LIB_DIR}/
+	@cp -r ${GLEW_SRC}/include/GL ${INCLUDE_DIR}/
+	@echo "<<< ${GLEW} <<<"
+
 prepare:
 	@mkdir -p ${BUILD_DIR}
 	@mkdir -p ${STAGING_DIR}
@@ -49,4 +61,4 @@ clean:
 	rm -rf ${BUILD_DIR}
 	rm -rf ${STAGING_DIR}
 
-.PHONEY: prepare glfw app build run clean
+.PHONEY: prepare glfw glew app build run clean

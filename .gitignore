@@ -43,3 +43,5 @@
 # build artifacts
 .build_dir
 .staging_dir
+contrib/glew-2.2.0/glew.pc
+contrib/glew-2.2.0/lib/
