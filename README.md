@@ -4,6 +4,10 @@
 
 https://youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&si=LGOWqZDjoJ-in4Xn
 
+| #   | Video                                                                                                                                         | Code                                                                                                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 2   | [Setting up OpenGL and Creating a Window in C++](https://www.youtube.com/watch?v=OR4fNpBjmq8&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=2) | [5d65684](https://github.com/dhananjaylatkar/learning_opengl/tree/5d65684e51f08d6e82391dada99d08400a453421) |
+
 ## Developing
 
 This is tested on Fedora Workstation (GNOME Wayland)
