@@ -11,6 +11,8 @@ https://youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&si=LGOWqZDj
 | 4   | [Vertex Buffers and Drawing a Triangle in OpenGL](https://www.youtube.com/watch?v=0p9VxImr7Y0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=6) | [f414bc7](https://github.com/dhananjaylatkar/learning_opengl/tree/f414bc740ad36252b01ee377566429cff9371b2c) |
 | 5   | [Vertex Attributes and Layouts in OpenGL](https://www.youtube.com/watch?v=x0H--CL2tUI&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=5)         | [1ddc2af](https://github.com/dhananjaylatkar/learning_opengl/tree/1ddc2afada5e9813569777bafd7a0d0471cdd9c6) |
 
+NOTE: see learning_opengl_win11
+
 ## Developing
 
 This is tested on Fedora Workstation (GNOME Wayland)
