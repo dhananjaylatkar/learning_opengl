@@ -110,6 +110,10 @@ int main(void) {
   if (!glfwInit())
     return -1;
 
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
   /* Create a windowed mode window and its OpenGL context */
   window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
   if (!window) {
@@ -145,18 +149,25 @@ int main(void) {
   };
   // clang-format on
 
+  /* vertex array object */
+  unsigned int vao;
+  GLCall(glGenVertexArrays(1, &vao));
+  GLCall(glBindVertexArray(vao));
+
   unsigned int buffer;
   // create buffer. this is stored in vram
   GLCall(glGenBuffers(1, &buffer));
   // select buffer to modify it
   GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer));
   // copy data into buffer
-  GLCall(glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions,
+  GLCall(glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions,
                       GL_STATIC_DRAW));
 
+  /* index 0 of vao will be bound to currently bound buffer */
   GLCall(glEnableVertexAttribArray(0));
   GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
 
+  /* index buffer object */
   unsigned int ibo;
   GLCall(glGenBuffers(1, &ibo));
   GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
@@ -167,7 +178,11 @@ int main(void) {
 
   unsigned int shader =
       CreateShader(source.VertexSource, source.FragmentSource);
-  GLCall(glUseProgram(shader));
+
+  GLCall(glBindVertexArray(0));
+  GLCall(glUseProgram(0));
+  GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+  GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
   int location = glGetUniformLocation(shader, "u_Color");
   ASSERT(location != -1);
@@ -180,8 +195,15 @@ int main(void) {
     /* Render here */
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
-    // draw the elements
+    GLCall(glUseProgram(shader));
     GLCall(glUniform4f(location, r, 0.3f, 0.8f, 1.0f));
+
+    GLCall(glBindVertexArray(vao));
+
+    /* NOTE: following call is not needed because ibo is stored in vao.
+     * This happens above when we bind vao and later bind ibo */
+    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
+
     GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
     if (r > 1.0f)
